@@ -1,7 +1,5 @@
-/**
- * Package `simpro` improves the simPRO Software API experience with a simpler,
- * developer-friendly interface.
- **/
+// Package simpro improves the simPRO Software API experience with a simpler,
+// developer-friendly interface.
 package simpro
 
 import (
