@@ -50,9 +50,9 @@ func (sdk *SimPROSDK) SetCompany(id uint) {
 }
 
 // GetCompanies
-func (sdk *SimPROSDK) GetCompanies() ([]CompanyListResponse, error) {
+func (sdk *SimPROSDK) GetCompanies() ([]*CompanyListResponse, error) {
 	var (
-		emptyResp = []CompanyListResponse{}
+		emptyResp = []*CompanyListResponse{}
 
 		url = fmt.Sprintf("https://%s%s", sdk.simPRODomain, sdk.apiBase)
 	)
@@ -72,7 +72,7 @@ func (sdk *SimPROSDK) GetCompanies() ([]CompanyListResponse, error) {
 		return emptyResp, nil
 	}
 
-	var data []CompanyListResponse
+	var data []*CompanyListResponse
 
 	err = json.Unmarshal(body, &data)
 	if err != nil {
@@ -83,9 +83,9 @@ func (sdk *SimPROSDK) GetCompanies() ([]CompanyListResponse, error) {
 }
 
 // GetCompanyInfo
-func (sdk *SimPROSDK) GetCompanyInfo() (CompanyResponse, error) {
+func (sdk *SimPROSDK) GetCompanyInfo() (*CompanyResponse, error) {
 	var (
-		emptyResp = CompanyResponse{}
+		emptyResp = &CompanyResponse{}
 
 		url = fmt.Sprintf("https://%s%s%d",
 			sdk.simPRODomain,
@@ -109,7 +109,7 @@ func (sdk *SimPROSDK) GetCompanyInfo() (CompanyResponse, error) {
 		return emptyResp, nil
 	}
 
-	var data CompanyResponse
+	var data *CompanyResponse
 
 	err = json.Unmarshal(body, &data)
 	if err != nil {
