@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -63,7 +62,7 @@ func (sdk *SimPROSDK) GetCompanies() ([]CompanyListResponse, error) {
 		return emptyResp, err
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return emptyResp, ErrorFailedReadingBody(err.Error())
 	}
@@ -100,7 +99,7 @@ func (sdk *SimPROSDK) GetCompanyInfo() (CompanyResponse, error) {
 		return emptyResp, err
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return emptyResp, ErrorFailedReadingBody(err.Error())
 	}
