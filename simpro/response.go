@@ -23,3 +23,29 @@ type companyAddress struct {
 	Line1 string `json:"Line1"`
 	Line2 string `json:"Line2"`
 }
+
+// SecurityGroupListResponse
+type SecurityGroupListResponse struct {
+	ID   uint   `json:"ID"`
+	Name string `json:"Name"`
+}
+
+// SecurityGroupResponse
+type SecurityGroupResponse struct {
+	ID            uint                        `json:"ID"`
+	Name          string                      `json:"Name"`
+	BusinessGroup *securityGroupBusinessGroup `json:"BusinessGroup"`
+	Dashboards    []*securityGroupDashboard   `json:"Dashboards"`
+}
+
+// securityGroupBusinessGroup
+type securityGroupBusinessGroup struct {
+	ID   uint   `json:"ID"`
+	Name string `json:"Name"`
+}
+
+// securityGroupDashboard
+type securityGroupDashboard struct {
+	ID   uint   `json:"ID"`
+	Name string `json:"Name"`
+}

@@ -119,6 +119,92 @@ func (sdk *SimPROSDK) GetCompanyInfo() (CompanyResponse, error) {
 	return data, nil
 }
 
+// GetSecurityGroups
+func (sdk *SimPROSDK) GetSecurityGroups() (
+	[]*SecurityGroupListResponse, error,
+) {
+	var (
+		emptySgList = []*SecurityGroupListResponse{}
+
+		url = fmt.Sprintf("https://%s%s%d/setup/securityGroups/",
+			sdk.simPRODomain,
+			sdk.apiBase,
+			sdk.apiCompanyID,
+		)
+	)
+
+	resp, err := sdk.makeHTTPRequest("GET", url, nil)
+	if err != nil {
+		return emptySgList, err
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return emptySgList, ErrorFailedReadingBody(err.Error())
+	}
+	defer resp.Body.Close()
+
+	if len(body) == 0 {
+		return emptySgList, nil
+	}
+
+	var sgList []*SecurityGroupListResponse
+
+	err = json.Unmarshal(body, &sgList)
+	if err != nil {
+		return emptySgList, ErrorFailedJSONUnmarshal(err.Error())
+	}
+
+	return sgList, nil
+}
+
+// GetSecurityGroup
+func (sdk *SimPROSDK) GetSecurityGroup(id uint) (
+	*SecurityGroupResponse, error,
+) {
+	var (
+		emptySg = &SecurityGroupResponse{}
+
+		url = fmt.Sprintf("https://%s%s%d/setup/securityGroups/%d",
+			sdk.simPRODomain,
+			sdk.apiBase,
+			sdk.apiCompanyID,
+			id,
+		)
+	)
+
+	resp, err := sdk.makeHTTPRequest("GET", url, nil)
+	if err != nil {
+		return emptySg, err
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return emptySg, ErrorFailedReadingBody(err.Error())
+	}
+	defer resp.Body.Close()
+
+	if len(body) == 0 {
+		return emptySg, nil
+	}
+
+	var sg *SecurityGroupResponse
+
+	// TODO:
+	// Find a way to properly ignore missing fields in JSON response
+	// i.e. "BusinessGroup":{} => BusinessGroup:{ID:nil Name:nil}
+	//
+	// Currently unmarshals to zero values. No bueno :(
+	// i.e. BusinessGroup:{ID:0 Name:}
+
+	err = json.Unmarshal(body, &sg)
+	if err != nil {
+		return emptySg, ErrorFailedJSONUnmarshal(err.Error())
+	}
+
+	return sg, nil
+}
+
 // ------------ Private ------------
 
 // makeHTTPRequest
