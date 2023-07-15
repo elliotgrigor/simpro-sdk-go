@@ -37,7 +37,7 @@ func main() {
         log.Fatal(err)
     }
 
-    // `cl` (pretty-printed)
+    // `cl` (dereferenced, pretty-printed)
     // [
     //     {
     //         ID: 0
@@ -75,7 +75,7 @@ func main() {
         log.Fatal(err)
     }
 
-    // `ci` (pretty-printed)
+    // `ci` (dereferenced, pretty-printed)
     // {
     //     ID: 1
     //     Name: My Other Organisation
