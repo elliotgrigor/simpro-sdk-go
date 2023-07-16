@@ -49,7 +49,9 @@ func (sdk *SimPROSDK) SetCompany(id uint) {
 	sdk.apiCompanyID = id
 }
 
-// GetCompanies
+// GetCompanies retrieves a slice of company IDs and names. This can be used in
+// conjunction with an omitted company ID in NewSimPROSDK to check the available
+// companies before committing to one with SetCompany.
 func (sdk *SimPROSDK) GetCompanies() ([]*CompanyListResponse, error) {
 	var (
 		emptyCpList = []*CompanyListResponse{}
@@ -82,7 +84,7 @@ func (sdk *SimPROSDK) GetCompanies() ([]*CompanyListResponse, error) {
 	return cpList, nil
 }
 
-// GetCompanyInfo
+// GetCompanyInfo retrieves details about the currently set company.
 func (sdk *SimPROSDK) GetCompanyInfo() (*CompanyResponse, error) {
 	var (
 		emptyCp = &CompanyResponse{}
