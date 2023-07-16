@@ -70,6 +70,7 @@ func main() {
     // Company ID can be set after initialisation
     sdk.SetCompany(1)
 
+    // Uses company ID set in NewSimPROSDK or SetCompany
     ci, err := sdk.GetCompanyInfo()
     if err != nil {
         log.Fatal(err)
