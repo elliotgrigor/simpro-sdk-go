@@ -52,40 +52,40 @@ func (sdk *SimPROSDK) SetCompany(id uint) {
 // GetCompanies
 func (sdk *SimPROSDK) GetCompanies() ([]*CompanyListResponse, error) {
 	var (
-		emptyResp = []*CompanyListResponse{}
+		emptyCpList = []*CompanyListResponse{}
 
 		url = fmt.Sprintf("https://%s%s", sdk.simPRODomain, sdk.apiBase)
 	)
 
 	resp, err := sdk.makeHTTPRequest("GET", url, nil)
 	if err != nil {
-		return emptyResp, err
+		return emptyCpList, err
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return emptyResp, ErrorFailedReadingBody(err.Error())
+		return emptyCpList, ErrorFailedReadingBody(err.Error())
 	}
 	defer resp.Body.Close()
 
 	if len(body) == 0 {
-		return emptyResp, nil
+		return emptyCpList, nil
 	}
 
-	var data []*CompanyListResponse
+	var cpList []*CompanyListResponse
 
-	err = json.Unmarshal(body, &data)
+	err = json.Unmarshal(body, &cpList)
 	if err != nil {
-		return emptyResp, ErrorFailedJSONUnmarshal(err.Error())
+		return emptyCpList, ErrorFailedJSONUnmarshal(err.Error())
 	}
 
-	return data, nil
+	return cpList, nil
 }
 
 // GetCompanyInfo
 func (sdk *SimPROSDK) GetCompanyInfo() (*CompanyResponse, error) {
 	var (
-		emptyResp = &CompanyResponse{}
+		emptyCp = &CompanyResponse{}
 
 		url = fmt.Sprintf("https://%s%s%d",
 			sdk.simPRODomain,
@@ -96,27 +96,27 @@ func (sdk *SimPROSDK) GetCompanyInfo() (*CompanyResponse, error) {
 
 	resp, err := sdk.makeHTTPRequest("GET", url, nil)
 	if err != nil {
-		return emptyResp, err
+		return emptyCp, err
 	}
 
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return emptyResp, ErrorFailedReadingBody(err.Error())
+		return emptyCp, ErrorFailedReadingBody(err.Error())
 	}
 	defer resp.Body.Close()
 
 	if len(body) == 0 {
-		return emptyResp, nil
+		return emptyCp, nil
 	}
 
-	var data *CompanyResponse
+	var cp *CompanyResponse
 
-	err = json.Unmarshal(body, &data)
+	err = json.Unmarshal(body, &cp)
 	if err != nil {
-		return emptyResp, ErrorFailedJSONUnmarshal(err.Error())
+		return emptyCp, ErrorFailedJSONUnmarshal(err.Error())
 	}
 
-	return data, nil
+	return cp, nil
 }
 
 // GetSecurityGroups
