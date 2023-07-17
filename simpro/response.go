@@ -8,14 +8,14 @@ type CompanyListResponse struct {
 
 // CompanyResponse
 type CompanyResponse struct {
-	ID       uint           `json:"ID"`
-	Name     string         `json:"Name"`
-	Phone    string         `json:"Phone"`
-	Email    string         `json:"Email"`
-	Address  companyAddress `json:"Address"`
-	Country  string         `json:"Country"`
-	Timezone string         `json:"Timezone"`
-	Currency string         `json:"Currency"`
+	ID       uint            `json:"ID"`
+	Name     string          `json:"Name"`
+	Phone    string          `json:"Phone"`
+	Email    string          `json:"Email"`
+	Address  *companyAddress `json:"Address"`
+	Country  string          `json:"Country"`
+	Timezone string          `json:"Timezone"`
+	Currency string          `json:"Currency"`
 }
 
 // companyAddress
